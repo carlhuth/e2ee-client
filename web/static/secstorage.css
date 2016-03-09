@@ -1,0 +1,517 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
+body {
+	font-family: 'Open Sans';
+	font-size: 16px;
+	line-height: 24px;
+	background: #e6e6e6;
+}
+
+.textLight {
+	color: #888888;
+	font-weight: 300;
+	font-size: 12pt;
+}
+
+input[type=submit] {
+	background-color: #9ccb48;
+	border: none;
+	padding: 4px;
+	color: #FFF;
+}
+
+#download,
+#delete,
+#share {
+	margin-right: 9px;
+	width: 80px;
+	font-size: 15px;
+}
+
+#addTrustedUser {
+	margin-right: 10px;
+	width: 140px;
+	font-size: 15px;
+}
+
+.unlock input[type=submit]{
+	margin-left: 35px;
+	width: 290px;
+}
+
+.unlockForm {
+	margin-top: 50px;
+}
+
+#login {
+	margin-top: 60px;
+}
+
+.unlock {
+	background: #ffffff;
+	width: 360px;
+	height: 550px;
+	margin: 200 auto;
+}
+
+div.unlock h1 {
+	color: #333333;
+	font-weight: 500;
+	font-size: 26pt;
+	text-align: center;
+	padding-top: 50px;
+}
+
+#e2eeUsername,
+#e2eePassword,
+#e2eePassphrase,
+#e2eeConfirmPassword,
+#e2eeUrl,
+#auditUrl {
+	margin-left: 35px;
+	margin-bottom: 10px;
+	width: 290px;
+	color: #888888;
+	font-weight: 400;
+	font-size: 14pt;
+}
+
+#e2eeUsername:focus,
+#e2eePassword:focus,
+#e2eePassphrase:focus,
+#e2eeConfirmPassword:focus,
+#e2eeUrl:focus,
+#auditUrl:focus {
+	border-color: #9ccb48;
+    box-shadow: #9ccb48;
+    outline: 0 none;
+}
+
+#forgotPasswordLink {
+	margin-top: 50px;
+	color: #9ccb48;
+	text-align: center;
+}
+
+#forgotPasswordLink:hover {
+	text-decoration: underline;
+	cursor: hand
+}
+
+#e2eeUrl {
+	margin-top: 20px;
+}
+
+div.encryptionContainer {
+	width: 550px;
+	height: 500px;
+}
+
+div.encryptionContainer {
+	position: absolute;
+	top: 400;
+	left: 0;
+}
+
+div.fileSelector {
+	border: 3px dashed #9ccb48;
+	width: 520px;
+	height: 300px;
+	margin: 0 0 0 40px;
+	border-radius: 10px;
+	background-color: #f5f5f5;
+	color: #FFF;
+	text-align: center;
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+div.fileSelector:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+div.fileSelector:active {
+	background: rgba(255, 255, 255, 0.15);
+}
+
+div.fileSelector span.dragFileIcon {
+	margin-top: 150px;
+	font-size: 11em;
+	display: inline-block;
+}
+
+div.fileSelector span.dragFileInfo {
+	color: #888888;
+	padding: 1px 6px;
+	text-align: center;
+	margin: 10px auto 0 auto;
+	width: 265px;
+	display: block;
+}
+
+.fileSelector img {
+	margin-top: 105px;
+}
+
+input.fileSelectDialog {
+	display: none;
+}
+
+span.dow:hover {
+	text-decoration: underline;
+	cursor: hand
+}
+
+#back {
+	display: none;
+	width: 1110px;
+	margin: 20px auto 15px auto;
+	background: #fff;
+}
+
+#encryptContainer, #listContainer {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#encryptContainer {
+	margin-top: 36px;
+}
+
+#listContainer {
+	margin-top: 35px;
+	width: 480px;
+	height: 600px;
+}
+
+#filesContainer {
+	width: 420px;
+	height: 420px;
+	margin-left: 40px;
+	overflow-y:scroll;
+	border: 1px solid #f5f5f5;
+}
+
+.fileElement {
+	//width: 520px;
+	height: 60px;
+}
+
+.fileElement:nth-child(even) {
+	background: #f0f0f0;
+}
+
+.fileElement:nth-child(odd) {
+	background: #f5f5f5;
+}
+
+.fileElement:hover {
+	background: #e6e6e6;
+}
+
+.fileInfo {
+	display: inline-block;
+	margin-left: 15px;
+}
+
+.fileElement img {
+	display: inline-block;
+	margin: 18px 20px 0px 0px;
+	float: right;
+}
+
+.fileElement input {
+	display: inline-block;
+}
+
+.fileElement p {
+	font-size: 14pt;
+	color: #333333;
+	margin: 5px 0 0 0;
+}
+
+.fileElement span {
+	font-size: 10pt;
+	color: #888888;
+	margin: 0;
+}
+
+input[type='checkbox'] {
+	margin: 0px 0 20px 10px;
+	padding: 0 0 20px 0;
+	/* All browsers except webkit*/
+  	transform: scale(1.2);
+  	/* Webkit browsers*/
+  	-webkit-transform: scale(1.2);
+}
+
+.chrome input[type='checkbox'] {
+	//margin-top:
+}
+
+#buttons {
+	margin: 0 0 10px 40px;
+}
+
+div.encryptionContainer {
+	background: #7090ad;
+	color: #FFF;
+	border-radius: 2px;
+}
+
+div.encryptionContainer a {
+	color: inherit;
+	font-weight: normal;
+}
+
+div.encryptionContainer a.control {
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+div.encryptionContainer a.control:hover {
+	color: white;
+}
+
+#encryptionInfo {
+	height: 50px;
+	margin: 20px 0 0 40px;
+	color: #9ccb48;
+}
+
+#encryptionInfo img {
+	margin: -10px 10px 0 0px;
+}
+
+#encryptionInfo .objectInfoNeg {
+	color: #d88742;
+}
+
+#encryptionInfo .objectInfoPos {
+	color: #9ccb48;
+}
+
+.sInfo, .sInfoNeg {
+	float: right;
+}
+
+.sInfoNeg {
+	color: #d88742;
+}
+
+.progressBar {
+	margin: 0 0 0 40px;
+	height: 15px;
+	box-sizing: border-box;
+	padding: 0;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.progressBar,
+.progressBar {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 150ms linear 200ms, visibility 0 linear;
+}
+
+.progressBar,
+.progressBar {
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 400ms linear 200ms, visibility 0 linear 750ms;
+}
+
+.progressBar,
+.progressBar {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 200ms linear, visibility 0 linear 200ms;
+}
+
+.progressBar .progressBarFill {
+	width: 0;
+	height: 100%;
+	background: #9ccb48;
+}
+
+.sharedUsers .modal-content {
+	width: 390px;
+}
+
+.trustedUsers .modal-content {
+	width: 760px;
+}
+
+.modal-dialog span {
+	margin: 0px 50px 0px 10px;
+	color: #555555;
+}
+
+.modal-dialog .shareDone {
+	border-radius: 0px;
+	background-color: #9ccb48;
+	font-size: 15px;
+	color: #ffffff;
+}
+
+#e2eeUsernameShare,
+#e2eeUsernameTrusted {
+	width: 285px;
+	color: #555555;
+	font-weight: 400;
+	font-size: 12pt;
+}
+
+#addUser,
+#getPeer,
+#trust {
+	margin: 0px 0 0 15px;
+	background-color: #555555;
+	border: none;
+	padding: 4px;
+	color: #FFF;
+	width: 50px;
+	font-size: 15px;
+}
+
+#trust {
+	margin: 10px 0 0 0;
+}
+
+.modal-dialog input {
+	display: inline-block;
+}
+
+.modal-dialog table {
+	margin: 0px 0 0 0;
+	width: 350px;
+	font-size: 14px;
+	color: #888888;
+}
+
+.trustedUsers table {
+	width: 720px;
+}
+
+.modal-dialog table, th, td {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.modal-dialog table {
+  border-top: 1px solid #e6e6e6;
+}
+
+.modal-dialog tr {
+	height: 40px;
+}
+
+.modal-dialog .user {
+	padding: 0 0 0 10px;
+	width: 180px;
+}
+
+.modal-dialog tr:nth-child(even) {
+	background: #f0f0f0;
+}
+
+.modal-dialog tr:nth-child(odd) {
+	background: #f5f5f5;
+}
+
+.modal-dialog .tableHeader {
+	margin: 30px 0 0 0;
+}
+
+.trustedUsers .title {
+	padding: 0 14px 0 0;
+}
+
+.sharedUsers .title {
+	padding: 0 44px 0 0;
+}
+
+.modal-dialog table .close {
+	color: #333333;
+	font-size: 12px;
+	float: none;
+}
+
+.trustedUsers .close {
+	padding-right: 10px;
+}
+
+#fingerprintInfo {
+	margin: 10px 0 0 0;
+	color: #555555;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+#fingerprint {
+	margin: 0;
+	padding: 0;
+	color: #888888;
+}
+
+#userInfo {
+	margin: 0 0 10px 400px;
+}
+
+#userInfo button{
+	background-color: #555555;
+	width: 160px;
+	border-radius: 0px;
+	text-align: left;
+}
+
+#userInfo ul {
+	color: #888888;
+	background-color: #e6e6e6;
+  	border-radius: 0px;
+  	margin: 0;
+}
+
+#userInfo .dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+	background-color: #f5f5f5;
+}
+
+#userInfo .caret {
+	float: right;
+	margin: 10px 0 0 0;
+}
+
+#logoLogin {
+	text-align: center;
+	margin: auto;
+	display: block;
+	padding: 30px 0 30px 0;
+	height: 110px;
+}
+
+#logo {
+	//text-align: center;
+	//margin: auto;
+	//display: block;
+	//padding: 30px 0 30px 0;
+	height: 45px;
+	margin: 0 0 30px 40px;
+}
+
+.notification {
+	color: #d88742;
+	text-align: center;
+	font-weight: 300;
+	font-size: 12pt;
+	height: 20px;
+}
+
+
+
