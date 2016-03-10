@@ -652,7 +652,7 @@ $('form.unlockForm').on('submit', function() {
     		.end(function (err, res) {
     			if (err === null) {
     			    var token = JSON.parse(res.text).token;
-				    localStorage.setItem("token", token)
+				    crypton.token = token
 				    crypton.openSession(username, passphrase)	
 				} else {
 					if (err.message === 'Unauthorized') {

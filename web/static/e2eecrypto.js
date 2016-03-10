@@ -45,8 +45,7 @@ crypton.MIN_PBKDF2_ROUNDS = 1000;
 crypton.clientVersionMismatch = undefined;
 
 crypton.bearer = function(request) {
-  var token = localStorage.getItem("token");
-  if (token) request.set('Authorization', 'Bearer ' + token);
+  request.set('Authorization', 'Bearer ' + crypton.token);
 };
 
 crypton.openSession = function(username, passphrase) {

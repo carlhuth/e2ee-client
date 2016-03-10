@@ -1,16 +1,12 @@
 # End-to-End Encryption (E2EE) client
 
-E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). It is essentially the same as [Crypton client](https://github.com/SpiderOak/crypton), but tied to a slightly different REST API of the E2EE server.
+E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). For encryption/decryption it uses slightly modified [Crypton client](https://github.com/SpiderOak/crypton).
 
-NOTE: E2EE client is a work in progress. It should never be used as a web page, but only through some sophisticated software installation system like the one provided for Chrome extensions.
+NOTE: E2EE client is a work in progress.
 
 ## Installation
 
-For testing purposes E2EE client can be run in the web directory (the path of the project needs to be set in web.py):
-
-`python web.py`
-
-After this the client can be accessed on: http://localhost:8000/
+Load it as an upacked extension in Chrome.
 
 # NOTICE #
 
