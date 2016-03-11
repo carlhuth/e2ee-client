@@ -63,8 +63,7 @@ div.unlock h1 {
 #e2eePassword,
 #e2eePassphrase,
 #e2eeConfirmPassword,
-#e2eeUrl,
-#auditUrl {
+#e2eeServerUrl {
 	margin-left: 35px;
 	margin-bottom: 10px;
 	width: 290px;

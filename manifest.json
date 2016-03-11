@@ -2,6 +2,7 @@
   "name": "E2EE client",
   "version": "2.1",
   "description": "Encrypts files and uploads them to the E2EE server.",
+  "author": "Miha Stopar",
   "icons": { "128": "web/static/icons/key.png" },
   "app": {
     "background": {
@@ -9,8 +10,10 @@
     }
   },
   "permissions" : [
+    "notifications",
+    //{"fileSystem": ["write"]} ,
     "fileSystem",
-    "storage",
-    "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700"
+    "fileSystem.write",
+    "storage"
   ]
 }

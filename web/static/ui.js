@@ -16,6 +16,9 @@ e2ee.UI.start = function() {
 	$('span.dragFileInfo').html(
 		$('span.dragFileInfo').data('select')
 	)
+	chrome.storage.local.get("serverUrl", function(result){
+		document.getElementById("e2eeServerUrl").value = result["serverUrl"];
+	})
 }
 
 e2ee.UI.open = function(username, session) {
@@ -641,6 +644,7 @@ $('form.unlockForm').on('submit', function() {
 	var username = $('#e2eeUsername').val()
 	var password   = $('#e2eePassword').val()
 	var passphrase   = $('#e2eePassphrase').val()
+	var serverUrl = $('#e2eeServerUrl').val()
 
 	if (!passphrase.length) {
 		$('#e2eePassphrase').select()
@@ -653,6 +657,9 @@ $('form.unlockForm').on('submit', function() {
     			if (err === null) {
     			    var token = JSON.parse(res.text).token;
 				    crypton.token = token
+				    if (serverUrl !== "") {
+				    	chrome.storage.local.set({"serverUrl":serverUrl})
+				    }
 				    crypton.openSession(username, passphrase)	
 				} else {
 					if (err.message === 'Unauthorized') {

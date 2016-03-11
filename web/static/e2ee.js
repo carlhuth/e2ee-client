@@ -103,9 +103,7 @@ e2ee.crypto.getFileByHmac = function(file){
 								decryptedChunks.push(new Uint8Array(arr))
 							});
 							var blob = new Blob(decryptedChunks)
-							// check fileSaver updates, it has a bug - it repeats the name when
-							// multiple files are downloaded
-							saveAs(blob, fileName)
+							saveAs(blob, fileName)	
 						}
 					})
 				}
@@ -153,10 +151,7 @@ e2ee.crypto.getFile = function(fileName){
 							decryptedChunks.push(new Uint8Array(arr))
 						});
 						var blob = new Blob(decryptedChunks)
-						// check fileSaver updates, it has a bug - it repeats the name when
-						// multiple files are downloaded
 						saveAs(blob, fileName)
-
 						e2ee.UI.animateProgressBar(1, 1)
 						e2ee.UI.clearAfterDownloading(fileName)
 					}

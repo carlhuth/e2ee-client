@@ -138,18 +138,6 @@ crypton.paranoia = 6;
  */
 crypton.trustedPeers = '_trusted_peers';
 
-crypton.sendAttestation = function(attest) {
-    attest = JSON.stringify(attest);
-    superagent.post(crypton.auditorUrl)
-            .withCredentials()
-            .send(attest)
-            .set('Content-Type', 'application/json')
-            .end(function (res) {
-                console.log(res.body);
-            }
-    );	
-}
-
 /**!
  * ### collectorsStarted
  * Internal flag to know if startCollectors has been called
@@ -174,7 +162,8 @@ crypton.startCollectors = function () {
 crypton.url = function () {
   //return 'https://' + crypton.host + ':' + crypton.port;
   //testing:
-  return 'http://localhost:8080';
+  //return 'http://localhost:8080';
+  return document.getElementById("e2eeServerUrl").value
 };
 
 /**!

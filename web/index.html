@@ -17,7 +17,7 @@
  
  <script src="static/bootbox.js" type="text/javascript" charset="utf-8"></script>
  <link rel="stylesheet" href="static/secstorage.css" type="text/css" media="screen">
-
+ 
 </head>                                                             
 
 <body class="startOnLoad">
@@ -31,6 +31,10 @@
 							placeholder="Password"/>
 						<input type="password" class="form-control" id="e2eePassphrase" maxlength="128"
 							placeholder="Passphrase"/>
+
+						<br>
+						<input type="text" class="form-control" id="e2eeServerUrl" maxlength="128"
+							placeholder="E2EE server URL"/>
 
 						<div class="notification"></div>
 						<div class="textLight" id="forgotPasswordLink">Forgot your password?</div>
@@ -64,11 +68,9 @@
 					<div class="fileSelector">
 						<img src="static/icons/key.png" alt="Key" height="42" width="42">
 						<span class="dragFileInfo"
-							data-select="Select or drop a file to encrypt it"
+							data-select="Drop a file to encrypt it"
 							data-drop="Drop it..."
 							data-read="Reading..."
-							data-zip="Compressing folder..."
-							data-error="File not supported."
 						></span>
 					</div>
 					<form class="process">
