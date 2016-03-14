@@ -640,6 +640,10 @@ $('#delete').on('click', function() {
 	return false
 })
 
+$('#logout').on('click', function() {
+	chrome.runtime.reload();
+})
+
 $('form.unlockForm').on('submit', function() {
 	var username = $('#e2eeUsername').val()
 	var password   = $('#e2eePassword').val()
