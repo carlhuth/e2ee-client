@@ -38,7 +38,8 @@ var e2ee
 
     // Chunk size (in bytes)
     // Warning: Must not be less than 256 bytes
-    e2ee.crypto.chunkSize = 1024 * 1024 * 1
+    //e2ee.crypto.chunkSize = 1024 * 1024 * 1
+    e2ee.crypto.chunkSize = 1024 * 1 * 1 // testing
 
     e2ee.crypto.addChunkToContainer = function(chunk_id, chunk, fileContainer) {
         fileContainer.get('chunks', function(err, chunks) {

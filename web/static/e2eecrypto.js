@@ -1709,10 +1709,30 @@ var crypton = {};
                     var value = payload.delta.chunks[0][key];
                     size += value.length;
                 }
+                
+                // Not the whole container is converted into Uint8Array - 
+                // only chunks and metadata at the moment.
+                // Note that metadata could be added to another container,
+                // but than when sharing this container would be needed 
+                // to be shared too ...
+                var meta = JSON.stringify(payload.delta.metadata[0]);
+                var buf = new ArrayBuffer(meta.length);
+  				var bufView = new Uint8Array(buf);
+  				for (var i=0; i<meta.length; i++) {
+    				bufView[i] = meta.charCodeAt(i);
+  				}
+  				var separationOffset = 10
+  				size += meta.length;
+  				size += separationOffset;
+                
                 var newArray = new Uint8Array(size);
                 Object.keys(payload.delta.chunks[0]).forEach(function(key) { // keys are data positions
                     newArray.set(payload.delta.chunks[0][key], parseInt(key));
                 });
+                
+                var tmpLen = newArray.length;
+                newArray.set(bufView, size-meta.length);
+                 
                 rawPayloadCiphertext = sjcl.encrypt(that.sessionKey, newArray.buffer, crypton.cipherOptions);
             } else {
                 rawPayloadCiphertext = sjcl.encrypt(that.sessionKey, JSON.stringify(payload), crypton.cipherOptions);
@@ -2751,11 +2771,30 @@ var crypton = {};
                 payload.delta = {};
                 payload.delta.chunks = [];
                 var o = {};
-                var chunksNum = parseInt(dec.byteLength / e2ee.crypto.chunkSize) + 1;
+
+				var separationOffset = 10;
+                var metadataStart;
+                var newArray = new Uint8Array(dec);
+                for (var j = newArray.length; j >= 0; j--) {
+                	if (newArray[j] == 0) {
+						var separator = newArray.slice(j-separationOffset+1, j+1)
+						if (separator.join() === new Uint8Array(separationOffset).join()) {
+							metadataStart = j + 1;
+							break;	
+						}
+                	}
+				}
+				payload.delta.metadata = [];
+				var metaString = String.fromCharCode.apply(null, newArray.slice(metadataStart));
+				var metaObj = JSON.parse(metaString);
+				payload.delta.metadata.push(metaObj);
+                
+                var chunksDec = dec.slice(0, metadataStart - separationOffset);
+                var chunksNum = parseInt(chunksDec.byteLength / e2ee.crypto.chunkSize) + 1;
                 var startChunk = 0;
                 for (var i = 0; i < chunksNum; i++) {
-                    var min = Math.min(startChunk + e2ee.crypto.chunkSize, dec.byteLength);
-                    var chunk = new Uint8Array(dec.slice(startChunk, min));
+                    var min = Math.min(startChunk + e2ee.crypto.chunkSize, chunksDec.byteLength);
+                    var chunk = new Uint8Array(chunksDec.slice(startChunk, min));
                     o[startChunk] = chunk;
                     startChunk += e2ee.crypto.chunkSize;
                 }

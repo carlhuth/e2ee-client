@@ -734,14 +734,14 @@
                             shared = true
                         }
 						e2ee.crypto.getContainer(fileName, function(fileContainer) { 
-            				fileContainer.get('metadata', function(err, chunks) {
+            				fileContainer.get('metadata', function(err, metadata) {
                 				if (err) {
                     				if (window.console && window.console.log) {
                         				console.info(err)
                         				console.info('file not available: ' + fileName)
                     				}
                 				} else {
-			                        e2ee.UI.addFileElement(fileName, metadata["meta"], shared, true)
+			                        e2ee.UI.addFileElement(fileName, metadata["date"], shared, true)
                 				}
                 			})
                 		})
