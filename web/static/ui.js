@@ -17,7 +17,10 @@
             $('span.dragFileInfo').data('select')
         )
         chrome.storage.local.get("serverUrl", function(result) {
-            document.getElementById("e2eeServerUrl").value = result["serverUrl"];
+        	var serverUrl = result["serverUrl"]
+        	if (serverUrl !== undefined) {
+            	document.getElementById("e2eeServerUrl").value = serverUrl;
+            }
         })
     }
 
