@@ -10,7 +10,7 @@ E2EE client encrypts files and sends them to [E2EE server](https://github.com/xl
 
 Files that are to be encrypted and stored on E2EE server can be dragged into E2EE client:
 
-.. image:: https://raw.githubusercontent.com/xlab-si/e2ee-server/master/pictures/drag.png
+.. image:: https://raw.github.com/xlab-si/e2ee-server/master/pictures/drag.png
 
 Encrypted file is then listed in E2EE client: 
 
