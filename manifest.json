@@ -1,6 +1,6 @@
 {
   "name": "E2EE client",
-  "version": "0.21",
+  "version": "0.23",
   "description": "Encrypts files and uploads them to the E2EE server.",
   "author": "Miha Stopar",
   "icons": { "128": "web/static/icons/key.png" },
@@ -9,9 +9,16 @@
       "scripts": ["main.js"]
     }
   },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkk4k1Q4doZ4tchdtzNcewMyF8KsZvBCr2rVD0p+OoGToATH96qZi1RtX2JnQ4SUem6l2N/PFL/G1bTtCCVXKO48OjpFMjPS9DhqFqbJULbSFeP5Gg8HMALFap948GGs9K3K9ngnfGGCnjJ18emFdxqe0KY7cWRWEVJh4QNnB2HDsBvd6+fR2z5TtlGUEGBQ+dFNfckfeYo7MHGjwMDveNDXvEkNtdWF+H0maTLAl40PrhbH8KWsT5JWKTZwc9zuGkU0oEWyIybzD15XlIvJD8NnIBl5lzagQ66j8wIZmX98a9y5kNMsprmagmfPJG14Fwdun5CYUcA1Eq9G0Qa0xyQIDAQAB",
   "permissions" : [
+    "identity",
+    "identity.email",
     "notifications",
     {"fileSystem": ["write"]} ,
     "storage"
-  ]
+  ],
+  "oauth2": {
+    "client_id": "250838009887-b3i9oidc73koc3u3rulat30gpma20qmn.apps.googleusercontent.com",
+    "scopes": ["profile"]
+  }
 }

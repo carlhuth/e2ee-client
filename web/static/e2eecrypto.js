@@ -52,6 +52,9 @@ var crypton = {};
         superagent.get(url)
             .use(crypton.bearer)
             .end(function(err, res) {
+            	if (err != null) {
+		        	$('.notification').html('cannot connect to server')
+            	}
                 if (res.body.exists) {
                     crypton.authorize(username, passphrase, function(err, session) {
                         if (err) {
