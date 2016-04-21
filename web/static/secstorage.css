@@ -41,7 +41,7 @@ input[type=submit] {
 }
 
 #login {
-	margin-top: 60px;
+	margin-top: 180px;
 }
 
 .unlock {
@@ -81,17 +81,6 @@ div.unlock h1 {
 	border-color: #9ccb48;
     box-shadow: #9ccb48;
     outline: 0 none;
-}
-
-#forgotPasswordLink {
-	margin-top: 50px;
-	color: #9ccb48;
-	text-align: center;
-}
-
-#forgotPasswordLink:hover {
-	text-decoration: underline;
-	cursor: hand
 }
 
 #e2eeUrl {
@@ -457,12 +446,12 @@ div.encryptionContainer a.control:hover {
 }
 
 #userInfo {
-	margin: 0 0 10px 400px;
+	margin: 0 0 10px 340px;
 }
 
 #userInfo button{
 	background-color: #555555;
-	width: 160px;
+	width: 220px;
 	border-radius: 0px;
 	text-align: left;
 }
@@ -502,12 +491,12 @@ div.encryptionContainer a.control:hover {
 }
 
 .notification {
-	color: #d88742;
+	margin-top: 10px;
+	color: #888888;
+	//color: #d88742;
 	text-align: center;
 	font-weight: 300;
 	font-size: 12pt;
 	height: 20px;
 }
-
-
 

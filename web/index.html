@@ -25,22 +25,19 @@
 				<div class="unlock">
 					<br>
 					<form class="unlockForm">
-						<input type="text" class="form-control" id="e2eeUsername" maxlength="128" spellcheck="false"
-							placeholder="Username"/>
-						<input type="password" class="form-control" id="e2eePassword" maxlength="128"
-							placeholder="Password"/>
 						<input type="password" class="form-control" id="e2eePassphrase" maxlength="128"
 							placeholder="Passphrase"/>
-
-						<br>
 						<input type="text" class="form-control" id="e2eeServerUrl" maxlength="128"
 							placeholder="E2EE server address"/>
 
-						<div class="notification"></div>
-						<div class="textLight" id="forgotPasswordLink">Forgot your password?</div>
-						
+						<div class="notification">
+						Choose a passphrase longer than six characters (after it is chosen you need
+						to always use the same passphrase) and specify the E2EE server address (like
+						https://e2ee-server:8080/).
+						</div>
 
-						<input id='login' type="submit" name='login' value="LOGIN" />
+
+						<input id='login' class=".signup-social .signup-social-button" type="submit" name='login' value="SIGN UP WITH GOOGLE" />
 					</form>
 				</div>	
 				

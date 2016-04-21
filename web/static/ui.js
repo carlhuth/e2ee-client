@@ -12,7 +12,7 @@
 
     // UI Startup
     e2ee.UI.start = function() {
-        $('#e2eeUsername').focus()
+        $('#e2eePassphrase').focus()
         $('span.dragFileInfo').html(
             $('span.dragFileInfo').data('select')
         )
@@ -656,8 +656,6 @@
         })
 
         $('form.unlockForm').on('submit', function() {
-            var username = $('#e2eeUsername').val()
-            var password = $('#e2eePassword').val()
             var passphrase = $('#e2eePassphrase').val()
             var serverUrl = $('#e2eeServerUrl').val()
 
@@ -666,29 +664,17 @@
                 return false
             }
             if (passphrase.length > 6) {
-                superagent.post(crypton.url() + '/token-auth')
-                    .send({
-                        username: username,
-                        password: password
-                    })
-                    .end(function(err, res) {
-                        if (err === null) {
-                            var token = JSON.parse(res.text).token;
-                            crypton.token = token
-                            if (serverUrl !== "") {
-                                chrome.storage.local.set({
-                                    "serverUrl": serverUrl
-                                })
-                            }
-                            crypton.openSession(username, passphrase)
-                        } else {
-                            if (err.message === 'Unauthorized') {
-                                $('.notification').html('Authorization failed.')
-                            } else {
-                                $('.notification').html(err.message)
-                            }
-                        }
-                    });
+        		chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+  					crypton.token = token
+	        		chrome.identity.getProfileUserInfo(function(userInfo) {
+	  					var username = userInfo["email"]
+		            	if (serverUrl !== "") {
+		                	chrome.storage.local.set({"serverUrl": serverUrl})
+		                }
+		                crypton.openSession(username, passphrase)
+		                $('.notification').html('signing in ...')
+					})
+				})
             } else {
                 $('#e2eePassphrase').select()
                 $('.notification').html('Passphrase is not long enough.')
