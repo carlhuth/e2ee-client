@@ -573,7 +573,7 @@
                     title: "Add trusted user",
                     className: "trustedUsers",
                     message: '<div id="adding">' +
-                        '<input type="text" class="form-control" id="e2eeUsernameTrusted" maxlength="128" spellcheck="false" placeholder="Username"/>' +
+                        '<input type="text" class="form-control" id="e2eeUsernameTrusted" maxlength="128" spellcheck="false" placeholder="User e-mail"/>' +
                         '<input id="getPeer" type="submit" name="getPeer" value="Get" />' +
                         '</div>' +
                         '<div id="fingerprintInfo">Fingerprint of user\'s public keys:' +
