@@ -1,6 +1,6 @@
 {
   "name": "E2EE client",
-  "version": "0.23",
+  "version": "0.24",
   "description": "Encrypts files and uploads them to the E2EE server.",
   "author": "Miha Stopar",
   "icons": { "128": "web/static/icons/key.png" },
@@ -19,6 +19,6 @@
   ],
   "oauth2": {
     "client_id": "250838009887-b3i9oidc73koc3u3rulat30gpma20qmn.apps.googleusercontent.com",
-    "scopes": ["profile"]
+    "scopes": ["profile", "email"]
   }
 }
