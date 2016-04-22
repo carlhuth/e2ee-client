@@ -53,7 +53,7 @@ var crypton = {};
             .use(crypton.bearer)
             .end(function(err, res) {
             	if (err != null) {
-		        	$('.notification').html('cannot connect to server')
+		        	$('.notification').html('cannot connect to server <br>(the reason might be a self signed certificate, in this case you can open E2EE server address in a browser and resolve a privacy error)')
             	}
                 if (res.body.exists) {
                     crypton.authorize(username, passphrase, function(err, session) {
