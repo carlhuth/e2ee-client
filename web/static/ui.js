@@ -727,10 +727,10 @@
                 				if (err) {
                     				if (window.console && window.console.log) {
                         				console.info(err)
-                        				console.info('file not available: ' + fileName)
+                        				console.info('file not available: ' + fileContainer.name)
                     				}
                 				} else {
-			                        e2ee.UI.addFileElement(fileName, metadata["date"], shared, true)
+			                        e2ee.UI.addFileElement(fileContainer.name, metadata["date"], shared, true)
                 				}
                 			})
                 		})
@@ -743,10 +743,10 @@
                                 if (err) {
                                     if (window.console && window.console.log) {
                                         console.info(err)
-                                        console.info('file not available: ' + file.hmac)
+                                        console.info('file not available: ' + fileContainer.name)
                                     }
                                 } else {
-			                        e2ee.UI.addFileElement(file.fileName, meta["date"], true, false)
+			                        e2ee.UI.addFileElement(fileContainer.name, meta["date"], true, false)
                                 }
                             })
 				        })
