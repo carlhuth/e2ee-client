@@ -641,8 +641,6 @@
                                 if (window.console && window.console.log) {
                                     console.error(err)
                                 }
-                            } else {
-                                e2ee.UI.showInfo(fileName, 'Deletion was successful.', true)
                             }
                         })
                     }
@@ -658,6 +656,10 @@
         $('form.unlockForm').on('submit', function() {
             var passphrase = $('#e2eePassphrase').val()
             var serverUrl = $('#e2eeServerUrl').val()
+            if (serverUrl.slice(-1) === "/") {
+           		serverUrl = serverUrl.slice(0, -1) 
+            	document.getElementById("e2eeServerUrl").value = serverUrl
+            }
 
             if (!passphrase.length) {
                 $('#e2eePassphrase').select()
