@@ -62,7 +62,7 @@ var e2ee
             } else {
                 callback()
                 if (window.console && window.console.log) {
-                    console.log('container deleted');
+                    e2ee.UI.showInfo(fileName, 'Deletion was successful.', true)
                 }
             }
         })
