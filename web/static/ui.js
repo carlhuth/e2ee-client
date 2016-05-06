@@ -333,8 +333,7 @@
                     }
                 })
                 if (alreadyShared) {
-                    console.log('already shared')
-                    e2ee.UI.showInfo(user, err, false)
+		            $('#sharingNotifications').html('already shared')
                     return
                 }
                 e2ee.session.cryptonSession.getPeer(user, function callback(err, peer) {
@@ -419,7 +418,11 @@
         $('#share').on('click', function() {
             var files = e2ee.UI.getCheckedFiles()
             if (files.length === 0) {
-                //todo: some message
+                e2ee.UI.showInfo('No files selected.', '', false)
+                return false
+            }
+            if (files.length > 1) {
+                e2ee.UI.showInfo('Please select only one file.', '', false)
                 return false
             }
             var file = files[0]
@@ -446,6 +449,7 @@
                         '<input id="addUser" type="submit" name="addUser" value="Add" />' +
                         '</div>' +
                         '<div class="tableHeader">' +
+                        '<p class="sharingNotifications"></p>' +
                         '<span class="title">Member</span><span>Permissions</span>' +
                         '</div>' +
                         '<table id="sharingTable" border="1">' +
@@ -602,15 +606,23 @@
         })
 
         $('#download').on('click', function() {
-            $('#statusInfo').html('downloading and decrypting...')
             var files = e2ee.UI.getCheckedFiles()
             console.info(files)
-            async.each(files, e2ee.crypto.downloadFile, function(err) {})
+            if (files.length == 0){
+                e2ee.UI.showInfo('No files selected.', '', false)
+            } else {
+	            $('#statusInfo').html('downloading and decrypting...')
+            	async.each(files, e2ee.crypto.downloadFile, function(err) {})
+            }
             return false
         })
 
         $('#delete').on('click', function() {
             var files = e2ee.UI.getCheckedFiles()
+            if (files.length == 0){
+                e2ee.UI.showInfo('No files selected.', '', false)
+           		return false 
+            }
             async.each(files, e2ee.crypto.deleteFile, function(err) {
                 if (window.console && window.console.log) {
                     console.info('Downloading finished')
@@ -694,13 +706,13 @@
             var m
             var clName
             if (positive) {
-                m = '<span class="sInfo"><img src="static/icons/ok.png" alt="OK" height="20" width="20">' + '<span>' + info + '</span></span>'
-                clName = 'ObjectInfoPos'
+                m = '<div class="sInfo"><img src="static/icons/ok.png" alt="OK" height="20" width="20">' + '<span>' + info + '</span></div>'
+                clName = 'objectInfoPos'
             } else {
-                m = '<span class="sInfoNeg"><span>' + info + '</span></span>'
-                clName = 'ObjectInfoNeg'
+                m = '<div class="sInfoNeg"><span>' + info + '</span></div>'
+                clName = 'objectInfoNeg'
             }
-            $('#encryptionInfo').html('<span class=' + clName + '>' + objectName + '</span>' + m)
+            $('#encryptionInfo').html('<div class=' + clName + '>' + objectName + '</div>' + m)
         }
 
         e2ee.UI.preparePanels = function(username) {
@@ -740,7 +752,7 @@
                     files = fileNames['notMineFiles']
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i]
-				        e2ee.crypto.getContainerByHmac(file.hmac, file.peer, function(fileContainer) {
+				        e2ee.crypto.getContainerByHmac(file.hmac, file.peer, file.fileName, function(fileContainer) {
 							fileContainer.get('metadata', function(err, meta) {
                                 if (err) {
                                     if (window.console && window.console.log) {
@@ -771,8 +783,11 @@
                 iconSize = 26
             }
             var htmlElement = '<div class="fileElement">' + c + '<div class="fileInfo"><p>'
-            htmlElement += fileName + '</p><span>' + metadata + '</span></div><img src="static/icons/'
-            htmlElement += icon + '" alt="shared" height="' + iconSize + '" width="' + iconSize + '"></div>'
+            //var htmlImg = '<img src="static/icons/' + icon + '" alt="shared" height="' + iconSize + '" width="' + iconSize + '">'
+
+            htmlElement += fileName + '</p><span>' + metadata + '</span></div>'
+            htmlElement += '<img src="static/icons/' + icon + '" alt="shared" height="' + iconSize + '" width="' + iconSize + '"></div>'
+            //htmlElement += '</div>'
 
             $('#filesContainer').append(htmlElement)
             if (!shared) {
@@ -790,7 +805,7 @@
                     'transition': 'none'
                 })
                 $('#statusInfo').html('')
-                e2ee.UI.showInfo(fileName, 'Download was successful.', true)
+                e2ee.UI.showInfo(fileName, 'Download was successful. The downloaded file should be visible in a download bar of a browser window (if opened).', true)
             }, 1000)
         }
 

@@ -68,7 +68,7 @@ var e2ee
         })
     }
     
-    e2ee.crypto.getContainerByHmac = function(fileHmacName, peerName, callback1) {
+    e2ee.crypto.getContainerByHmac = function(fileHmacName, peerName, fileName, callback1) {
     	e2ee.session.cryptonSession.getPeer(peerName, function callback(err, peer) {
             if (err) {
                 if (window.console && window.console.log) {
@@ -82,6 +82,7 @@ var e2ee
                         console.info(err)
                     }
                 } else {
+                	fileContainer.name = fileName // when loading with hmac, file name is not set
                 	callback1(fileContainer)
                 }
             })
@@ -89,7 +90,7 @@ var e2ee
     }
 
     e2ee.crypto.downloadFileByHmac = function(hmac, peerName, fileName) {
-        e2ee.crypto.getContainerByHmac(hmac, peerName, function(fileContainer) {
+        e2ee.crypto.getContainerByHmac(hmac, peerName, fileName, function(fileContainer) {
 			fileContainer.get('chunks', function(err, chunks) {
                 if (err) {
                     if (window.console && window.console.log) {
