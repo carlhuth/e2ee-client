@@ -1514,7 +1514,7 @@ var crypton = {};
                 async.each(res.body.messages, function(rawMessage, callback) {
                         var message = new crypton.Message(that, rawMessage);
                         message.decrypt(function(err) {
-                            messages[message.messageId] = message;
+                            messages[message.messageId] = message; // messagId actually not set
                             callback();
                         });
                     },

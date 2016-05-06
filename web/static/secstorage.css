@@ -87,17 +87,6 @@ div.unlock h1 {
 	margin-top: 20px;
 }
 
-div.encryptionContainer {
-	width: 550px;
-	height: 500px;
-}
-
-div.encryptionContainer {
-	position: absolute;
-	top: 400;
-	left: 0;
-}
-
 div.fileSelector {
 	border: 3px dashed #9ccb48;
 	width: 520px;
@@ -180,7 +169,7 @@ span.dow:hover {
 }
 
 .fileElement {
-	//width: 520px;
+	width: 1200px;
 	height: 60px;
 }
 
@@ -198,7 +187,9 @@ span.dow:hover {
 
 .fileInfo {
 	display: inline-block;
-	margin-left: 15px;
+	//margin-left: 15px;
+	width: 360px;
+	//float: right;
 }
 
 .fileElement img {
@@ -224,8 +215,7 @@ span.dow:hover {
 }
 
 input[type='checkbox'] {
-	margin: 0px 0 20px 10px;
-	padding: 0 0 20px 0;
+	margin: 0px 10px 0px 10px;
 	/* All browsers except webkit*/
   	transform: scale(1.2);
   	/* Webkit browsers*/
@@ -240,25 +230,7 @@ input[type='checkbox'] {
 	margin: 0 0 10px 40px;
 }
 
-div.encryptionContainer {
-	background: #7090ad;
-	color: #FFF;
-	border-radius: 2px;
-}
-
-div.encryptionContainer a {
-	color: inherit;
-	font-weight: normal;
-}
-
-div.encryptionContainer a.control {
-	color: inherit;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-div.encryptionContainer a.control:hover {
-	color: white;
+#info {
 }
 
 #encryptionInfo {
@@ -277,10 +249,17 @@ div.encryptionContainer a.control:hover {
 
 #encryptionInfo .objectInfoPos {
 	color: #9ccb48;
+	word-wrap: break-word;
+	float: left;
+	//height: 130px;
+	width: 250px;
 }
 
 .sInfo, .sInfoNeg {
+	word-wrap: break-word;
 	float: right;
+	//height: 130px;
+	width: 250px;
 }
 
 .sInfoNeg {
@@ -499,4 +478,9 @@ div.encryptionContainer a.control:hover {
 	font-size: 12pt;
 	height: 20px;
 }
+
+#sharingNotifications{
+	height: 20px;
+}
+
 
