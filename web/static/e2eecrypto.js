@@ -1467,6 +1467,9 @@ var crypton = {};
         peer.session = this;
 
         peer.fetch(function(err, peer) {
+        	if (peer === undefined) {
+                return callback("peer not registered");
+        	}
             if (err) {
                 return callback(err);
             }
