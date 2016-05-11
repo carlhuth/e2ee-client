@@ -194,8 +194,7 @@ span.dow:hover {
 
 .fileElement img {
 	display: inline-block;
-	margin: 18px 20px 0px 0px;
-	float: right;
+	margin: 0px 0px 0px 10px;
 }
 
 .fileElement input {
@@ -245,13 +244,15 @@ input[type='checkbox'] {
 
 #encryptionInfo .objectInfoNeg {
 	color: #d88742;
+	word-wrap: break-word;
+	float: left;
+	width: 250px;
 }
 
 #encryptionInfo .objectInfoPos {
 	color: #9ccb48;
 	word-wrap: break-word;
 	float: left;
-	//height: 130px;
 	width: 250px;
 }
 
@@ -472,15 +473,24 @@ input[type='checkbox'] {
 .notification {
 	margin-top: 10px;
 	color: #888888;
-	//color: #d88742;
 	text-align: center;
 	font-weight: 300;
 	font-size: 12pt;
 	height: 20px;
 }
 
-#sharingNotifications{
+#sharingNotifications, #trustNotifications {
 	height: 20px;
+	color: #d88742;
+	font-size: 11pt;
+}
+
+#sharingNotifications {
+	margin-top: 10px;
+}
+
+#trustInfo {
+	color: #555555;
 }
 
 

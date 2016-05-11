@@ -274,14 +274,14 @@
 
                             var sharedFiles = fileNames['sharedFiles']
                             var ind = $(row).index()
-                            var fInd = sharedFiles.indexOf(fileName)
-                            sharedFiles.splice(fInd, 1)
+							sharedFiles = sharedFiles.filter(function(el){return el.fileName!==fileName})
+                            fileNames['sharedFiles'] = sharedFiles
                             document.getElementById("sharingTable").deleteRow(ind)
                             var cs = $(':checkbox')
                             for (var i = 0; i < cs.length; i++) {
                                 if (cs[i].checked) {
                                     var p = cs[i].parentElement
-                                    var img = p.children[p.children.length - 1]
+                                    var img = p.children[1].children[1].children[0]
                                     $(img).hide()
                                 }
                             }
@@ -333,10 +333,14 @@
                     }
                 })
                 if (alreadyShared) {
-		            $('#sharingNotifications').html('already shared')
+		            $('#sharingNotifications').html('Already shared.')
                     return
                 }
                 e2ee.session.cryptonSession.getPeer(user, function callback(err, peer) {
+		        	if (peer === undefined) {
+				        $('#sharingNotifications').html('Not a registered user.')
+		                return;
+		        	}
                     if (err) {
                         if (window.console && window.console.log) {
                             console.error(err)
@@ -385,7 +389,7 @@
                                             for (var i = 0; i < cs.length; i++) {
                                                 if (cs[i].checked) {
                                                     var p = cs[i].parentElement
-                                                    var img = p.children[p.children.length - 1]
+                                                    var img = p.children[1].children[1].children[0]
                                                     $(img).show()
                                                 }
                                             }
@@ -403,7 +407,7 @@
                                                         console.err(err)
                                                     }
                                                 }
-                                                e2ee.UI.showInfo(file, 'File has been successfully shared to user ' + user + '.', true)
+                                                e2ee.UI.showInfo(file, 'File has been successfully shared to ' + user + '.', true)
                                             })
                                         }
                                     })
@@ -448,8 +452,8 @@
                         '<input type="text" class="form-control" id="e2eeUsernameShare" maxlength="128" spellcheck="false" placeholder="Username"/>' +
                         '<input id="addUser" type="submit" name="addUser" value="Add" />' +
                         '</div>' +
+                        '<p id="sharingNotifications"></p>' +
                         '<div class="tableHeader">' +
-                        '<p class="sharingNotifications"></p>' +
                         '<span class="title">Member</span><span>Permissions</span>' +
                         '</div>' +
                         '<table id="sharingTable" border="1">' +
@@ -474,7 +478,11 @@
             var user = $("#e2eeUsernameTrusted").val()
             e2ee.session.cryptonSession.getPeer(user, function callback(err, peer) {
                 if (err) {
-                    console.error(err);
+                	if (err === 'peer not registered') {
+				        $('#trustNotifications').html('This user has not been yet registered in E2EE server.')
+                	} else {
+                    	console.error(err);
+                    }
                     return;
                 }
                 //$("#e2eeUsernameTrusted")[0].value = ""
@@ -570,13 +578,14 @@
         $('#addTrustedUser').on('click', function() {
             e2ee.session.peersContainer.get("peers", function(err, peers) {
                 if (err) {
-                    return callback(err)
+                    console.log(err)
                 }
                 //var peers = trustedPeers.value
                 bootbox.dialog({
                     title: "Add trusted user",
                     className: "trustedUsers",
                     message: '<div id="adding">' +
+                    	'<p id="trustInfo">Before two users share files, both need to establish a trust to another user.</p>' + 
                         '<input type="text" class="form-control" id="e2eeUsernameTrusted" maxlength="128" spellcheck="false" placeholder="User e-mail"/>' +
                         '<input id="getPeer" type="submit" name="getPeer" value="Get" />' +
                         '</div>' +
@@ -585,6 +594,7 @@
                         Array(17).join("---- ") +
                         '</span>' +
                         '</div>' +
+                        '<p id="trustNotifications"></p>' +
                         '<input id="trust" type="submit" name="trust" value="Trust" />' +
                         '<div class="tableHeader">' +
                         '<span class="title">Trusted user</span><span>Fingerprint</span>' +
@@ -611,7 +621,7 @@
             if (files.length == 0){
                 e2ee.UI.showInfo('No files selected.', '', false)
             } else {
-	            $('#statusInfo').html('downloading and decrypting...')
+                e2ee.UI.showInfo('Downloading and decrypting...', '', true)
             	async.each(files, e2ee.crypto.downloadFile, function(err) {})
             }
             return false
@@ -623,18 +633,10 @@
                 e2ee.UI.showInfo('No files selected.', '', false)
            		return false 
             }
-            async.each(files, e2ee.crypto.deleteFile, function(err) {
-                if (window.console && window.console.log) {
-                    console.info('Downloading finished')
-                }
-                for (var i = 0; i < files.length; i++) {
-                    var fileName = files[i]
-                    var fileElement = document.getElementById(fileName).parentElement
-                    var parent = fileElement.parentElement
-                    parent.removeChild(fileElement)
-                }
-                var container = e2ee.session.indexContainer
-                container.get('fileNames', function(err, fileNames) {
+
+			var filesToBeDeleted = []
+            var container = e2ee.session.indexContainer
+			container.get('fileNames', function(err, fileNames) {
                     if (err) {
                         if (window.console && window.console.log) {
                             console.info(err)
@@ -642,12 +644,33 @@
                         }
                     } else {
                         var filesList = fileNames['listOfFiles']
-                        var l = filesList.length
-                        for (var i = 0; i < l; i++) {
-                            var fileName = filesList[i]
+                        var sharedList = fileNames['sharedFiles']
+                        for (var i = 0; i < files.length; i++) {
+                 		    var fileName = files[i]
                             var index = filesList.indexOf(fileName)
-                            filesList.splice(index, 1)
-                        }
+                            var index1 = sharedList.indexOf(fileName)
+                            if (index >= 0) {
+                            	// remove from UI:
+	                    	    var fileElement = document.getElementById(fileName).parentElement
+	                    		var parent = fileElement.parentElement
+	                    		parent.removeChild(fileElement)
+	                    		// remove from container:
+	                            filesList.splice(index, 1)
+	                            filesToBeDeleted.push(fileName)
+								sharedList = sharedList.filter(function(el){return el.fileName!==fileName})
+		                        fileNames['sharedFiles'] = sharedList
+                            } else {
+					            var err = 'File shared from another user cannot be deleted.'
+                                e2ee.UI.showInfo(fileName, err, false)
+                            }
+                		}
+			}
+
+            async.each(filesToBeDeleted, e2ee.crypto.deleteFile, function(err) {
+                if (window.console && window.console.log) {
+                    console.info('Downloading finished')
+                }
+                var container = e2ee.session.indexContainer
                         container.save(function(err) {
                             if (err) {
                                 if (window.console && window.console.log) {
@@ -655,7 +678,6 @@
                                 }
                             }
                         })
-                    }
                 })
             })
             return false
@@ -777,23 +799,22 @@
         e2ee.UI.addFileElement = function(fileName, metadata, shared, isMyContainer) {
             var c = '<input id="' + fileName + '" type="checkbox" name="file" value="">'
             var icon = "share.png"
-            var iconSize = 22
+            var iconSize = 20
             if (!isMyContainer) {
                 icon = "shared_from.png"
-                iconSize = 26
+                iconSize = 20
             }
             var htmlElement = '<div class="fileElement">' + c + '<div class="fileInfo"><p>'
-            //var htmlImg = '<img src="static/icons/' + icon + '" alt="shared" height="' + iconSize + '" width="' + iconSize + '">'
+            var htmlImg = '<img src="static/icons/' + icon + '" alt="shared" height="' + iconSize + '" width="' + iconSize + '">'
 
-            htmlElement += fileName + '</p><span>' + metadata + '</span></div>'
-            htmlElement += '<img src="static/icons/' + icon + '" alt="shared" height="' + iconSize + '" width="' + iconSize + '"></div>'
-            //htmlElement += '</div>'
+            htmlElement += fileName + '</p><span>' + metadata + htmlImg + '</span></div>'
+            htmlElement += '</div>'
 
             $('#filesContainer').append(htmlElement)
             if (!shared) {
                 var last = $('.fileElement:last-child')
-                var image = last.children()[last.children().length - 1]
-                $(image).hide()
+                var img = last[0].children[1].children[1].children[0]
+                $(img).hide()
             }
         }
 
@@ -804,7 +825,6 @@
                     'width': '0',
                     'transition': 'none'
                 })
-                $('#statusInfo').html('')
                 e2ee.UI.showInfo(fileName, 'Download was successful. The downloaded file should be visible in a download bar of a browser window (if opened).', true)
             }, 1000)
         }
@@ -877,7 +897,7 @@
         }
 
         $('form.process').on('encrypt:start', function(event, fileSize) {
-            $('#statusInfo').html('encrypting...')
+            e2ee.UI.showInfo('Encrypting...', '', true)
             e2ee.UI.animateProgressBar(0, fileSize)
         })
 
@@ -898,7 +918,6 @@
     }
 
     e2ee.UI.fileOperationIsComplete = function(fileName) {
-        $('#statusInfo').html('')
         setTimeout(function() {
             $('.progressBarFill').css({
                 'width': '0',
