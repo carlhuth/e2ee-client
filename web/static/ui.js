@@ -71,9 +71,8 @@
                             }
                         } else {
                             var files = fileNames['notMineFiles']
-                            console.log(Object.keys(messages))
-                            Object.keys(messages).forEach(function(key) {
-                                var message = messages[key]
+				            for (var i = 0; i < messages.length; i++) {
+                                var message = messages[i]
                                 if (message.payload.operation === 'share') {
                                     var hmac = message.payload.hmac
                                     var peerName = message.payload.peerName
@@ -90,7 +89,7 @@
                                     var index = files.indexOf(fileName)
                                     files.splice(index, 1)
                                 }
-                            })
+                            }
                             container.save(function(err) {
                                 if (err) {
                                     if (window.console && window.console.log) {
@@ -636,6 +635,7 @@
 
 			var filesToBeDeleted = []
             var container = e2ee.session.indexContainer
+            var sharedDeletedFiles = []
 			container.get('fileNames', function(err, fileNames) {
                     if (err) {
                         if (window.console && window.console.log) {
@@ -648,8 +648,7 @@
                         for (var i = 0; i < files.length; i++) {
                  		    var fileName = files[i]
                             var index = filesList.indexOf(fileName)
-                            var index1 = sharedList.indexOf(fileName)
-                            if (index >= 0) {
+                            if (index >= 0) { // my file
                             	// remove from UI:
 	                    	    var fileElement = document.getElementById(fileName).parentElement
 	                    		var parent = fileElement.parentElement
@@ -657,9 +656,13 @@
 	                    		// remove from container:
 	                            filesList.splice(index, 1)
 	                            filesToBeDeleted.push(fileName)
-								sharedList = sharedList.filter(function(el){return el.fileName!==fileName})
-		                        fileNames['sharedFiles'] = sharedList
-                            } else {
+								var newSharedList = sharedList.filter(function(el){return el.fileName!==fileName})
+		                        fileNames['sharedFiles'] = newSharedList
+								if (newSharedList.length != sharedList.length){ // this was is shared
+									var sharedFile = sharedList.filter(function(el){return el.fileName===fileName})[0]
+									sharedDeletedFiles.push(sharedFile)
+								}
+                            } else { // file shared from another user
 					            var err = 'File shared from another user cannot be deleted.'
                                 e2ee.UI.showInfo(fileName, err, false)
                             }
@@ -671,14 +674,16 @@
                     console.info('Downloading finished')
                 }
                 var container = e2ee.session.indexContainer
-                        container.save(function(err) {
-                            if (err) {
-                                if (window.console && window.console.log) {
-                                    console.error(err)
-                                }
-                            }
-                        })
-                })
+	            async.each(sharedDeletedFiles, e2ee.crypto.notifyAboutUnshared, function(err) {
+                	container.save(function(err) {
+                    	if (err) {
+                        	if (window.console && window.console.log) {
+                            	console.error(err)
+                        	}
+                    	}
+                	})
+	            })
+            })
             })
             return false
         })
@@ -728,7 +733,7 @@
             var m
             var clName
             if (positive) {
-                m = '<div class="sInfo"><img src="static/icons/ok.png" alt="OK" height="20" width="20">' + '<span>' + info + '</span></div>'
+                m = '<div class="sInfo"><img src="static/icons/ok.png" alt="OK" height="18" width="18">' + '<span>' + info + '</span></div>'
                 clName = 'objectInfoPos'
             } else {
                 m = '<div class="sInfoNeg"><span>' + info + '</span></div>'

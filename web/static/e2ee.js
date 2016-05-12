@@ -60,14 +60,38 @@ var e2ee
                     console.error(err)
                 }
             } else {
-                callback()
-                if (window.console && window.console.log) {
-                    e2ee.UI.showInfo(fileName, 'Deletion was successful.', true)
-                }
-            }
+            	if (window.console && window.console.log) {
+	                e2ee.UI.showInfo(fileName, 'Deletion was successful.', true)
+	            }
+	            callback()
+	        }
         })
     }
-    
+
+	e2ee.crypto.notifyAboutUnshared = function(file, callback) {
+		// when file that was shared is deleted, the unshare notification should be sent
+		e2ee.session.cryptonSession.getPeer(file.user, function callback1(err, peer) {
+            if (err) {
+                if (window.console && window.console.log) {
+                    console.error(err)
+                }
+            }
+			var headers = {}
+        	var payload = {
+            	operation: 'unshare',
+            	fileName: file.fileName
+        	}
+        	peer.sendMessage(headers, payload, function(err, messageId) {
+            	if (err) {
+            	    if (window.console && window.console.log) {
+            	        console.err(err)
+            	    }
+            	}
+          	    callback()
+        	})
+        })
+    }
+
     e2ee.crypto.getContainerByHmac = function(fileHmacName, peerName, fileName, callback1) {
     	e2ee.session.cryptonSession.getPeer(peerName, function callback(err, peer) {
             if (err) {
