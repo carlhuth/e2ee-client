@@ -1502,7 +1502,7 @@ var crypton = {};
     Session.prototype.getMessages = function(callback) {
         var that = this;
         var url = crypton.url() + '/messages';
-        var messages = {}
+        var messages = []
         superagent.get(url)
             .send(this.encrypted)
             .use(crypton.bearer)
@@ -1517,7 +1517,7 @@ var crypton = {};
                 async.each(res.body.messages, function(rawMessage, callback) {
                         var message = new crypton.Message(that, rawMessage);
                         message.decrypt(function(err) {
-                            messages[message.messageId] = message; // messagId actually not set
+                            messages.push(message);
                             callback();
                         });
                     },
@@ -2481,7 +2481,7 @@ var crypton = {};
 
             that.headers = JSON.parse(headers.plaintext);
             that.payload = JSON.parse(payload.plaintext);
-            that.created = new Date(that.CreatedAt); // started with upper case because default gorm.Model is used on server side
+            that.created = new Date(that.createdAt);
 
             callback(null, that);
         });
