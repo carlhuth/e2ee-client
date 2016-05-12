@@ -1,6 +1,6 @@
 {
   "name": "E2EE client",
-  "version": "0.29",
+  "version": "0.30",
   "description": "Encrypts files and uploads them to the E2EE server.",
   "author": "Miha Stopar",
   "icons": { "128": "web/static/icons/key.png" },

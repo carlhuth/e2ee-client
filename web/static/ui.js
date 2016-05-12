@@ -70,15 +70,43 @@
                                 console.info('file names from indexContainer could not be retrieved')
                             }
                         } else {
-                            var files = fileNames['notMineFiles']
+                            var notMine = fileNames['notMineFiles']
+                            
+                            var files = []
 				            for (var i = 0; i < messages.length; i++) {
-                                var message = messages[i]
+				            	var m = messages[i]
+				            	if (files.indexOf(m.payload.fileName) < 0) {
+				           			files.push(m.payload.fileName)
+				           		}
+				            }
+				            
+                            var messagesPerFile = {}
+				            for (var i = 0; i < files.length; i++) {
+                           		var file = files[i] 
+								var filtered = messages.filter(function(m){return m.payload.fileName===file})
+                           		messagesPerFile[file] = filtered
+                            }
+                            
+                			Object.keys(messagesPerFile).forEach(function(key) {
+                                var msgs = messagesPerFile[key]
+                                // only the latest share/unshare message is taken into account:
+                                var message
+                                if (msgs.length == 1){
+									message = msgs[0]
+								} else {
+									message = msgs[0]
+						            for (var i = 1; i < msgs.length; i++) {
+						            	if (msgs[i].created > message.created){
+											message = msgs[i]
+						            	}	
+									}
+								}
                                 if (message.payload.operation === 'share') {
                                     var hmac = message.payload.hmac
                                     var peerName = message.payload.peerName
                                     var fileName = message.payload.fileName
                                     var access = message.payload.access
-                                    files.push({
+                                    notMine.push({
                                         'fileName': fileName,
                                         'peer': peerName,
                                         'access': access,
@@ -86,10 +114,10 @@
                                     })
                                 } else {
                                     var fileName = message.payload.fileName
-                                    var index = files.indexOf(fileName)
-                                    files.splice(index, 1)
+                                    var index = notMine.indexOf(fileName)
+                                    notMine.splice(index, 1)
                                 }
-                            }
+                            })
                             container.save(function(err) {
                                 if (err) {
                                     if (window.console && window.console.log) {
