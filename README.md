@@ -4,7 +4,7 @@
 <img alt="Try it now" src="https://raw.github.com/GoogleChrome/chrome-app-samples/master/tryitnowbutton_small.png" title="Click here to install this app from the Chrome Web Store"></img>
 </a>
 
-E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). For encryption/decryption it uses slightly modified [Crypton client](https://github.com/SpiderOak/crypton).
+E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). For cryptography it uses [Crypton](https://github.com/SpiderOak/crypton). However, Crypton was [slightly modified](https://github.com/xlab-si/e2ee-client/wiki/Speed-up-Javascript-crypto) to enable faster encryption/decryption of files.
 
 # Usage
 
