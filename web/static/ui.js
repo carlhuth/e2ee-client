@@ -87,6 +87,7 @@
                            		messagesPerFile[file] = filtered
                             }
                             
+                            var notMineToBeDeleted = []
                 			Object.keys(messagesPerFile).forEach(function(key) {
                                 var msgs = messagesPerFile[key]
                                 // only the latest share/unshare message is taken into account:
@@ -106,18 +107,28 @@
                                     var peerName = message.payload.peerName
                                     var fileName = message.payload.fileName
                                     var access = message.payload.access
-                                    notMine.push({
-                                        'fileName': fileName,
-                                        'peer': peerName,
-                                        'access': access,
-                                        'hmac': hmac
-                                    })
+									var nn = notMine.filter(function(el){return el.fileName!==fileName})
+									if (nn.length == notMine.length){ // not shared yet
+                                    	notMine.push({
+                                        	'fileName': fileName,
+                                        	'peer': peerName,
+                                        	'access': access,
+                                        	'hmac': hmac
+                                    	})
+									}
                                 } else {
-                                    var fileName = message.payload.fileName
-                                    var index = notMine.indexOf(fileName)
-                                    notMine.splice(index, 1)
+                                    notMineToBeDeleted.push(message.payload.fileName)
                                 }
                             })
+                            var newNotMine = []
+						    for (var i = 0; i < notMine.length; i++) {
+						    	var f = notMine[i]
+						    	if (notMineToBeDeleted.indexOf(f.fileName) == -1){
+						    		newNotMine.push(f)	
+						    	}
+						    }
+    		                fileNames['notMineFiles'] = newNotMine
+
                             container.save(function(err) {
                                 if (err) {
                                     if (window.console && window.console.log) {
