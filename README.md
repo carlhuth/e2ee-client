@@ -6,6 +6,8 @@
 
 E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). For cryptography it uses [Crypton](https://github.com/SpiderOak/crypton). However, Crypton was [slightly modified](https://github.com/xlab-si/e2ee-client/wiki/Speed-up-Javascript-crypto) to enable faster encryption/decryption of files.
 
+Note: currently when somebody shares a file to you, the shared file will appear in your client only after logout/login.
+
 # Usage
 
 Files that are to be encrypted and stored on E2EE server can be dragged into E2EE client:
