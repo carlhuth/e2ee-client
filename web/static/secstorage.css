@@ -304,15 +304,19 @@ input[type='checkbox'] {
 }
 
 .sharedUsers .modal-content {
-	width: 390px;
+	width: 600px;
+}
+
+#sharingTable {
+	width: 570px;
 }
 
 .trustedUsers .modal-content {
-	width: 760px;
+	width: 860px;
 }
 
 .modal-dialog span {
-	margin: 0px 50px 0px 10px;
+	margin: 0px 195px 0px 10px;
 	color: #555555;
 }
 
@@ -353,13 +357,13 @@ input[type='checkbox'] {
 
 .modal-dialog table {
 	margin: 0px 0 0 0;
-	width: 350px;
+	//width: 350px;
 	font-size: 14px;
 	color: #888888;
 }
 
 .trustedUsers table {
-	width: 720px;
+	width: 830px;
 }
 
 .modal-dialog table, th, td {
@@ -379,7 +383,7 @@ input[type='checkbox'] {
 
 .modal-dialog .user {
 	padding: 0 0 0 10px;
-	width: 180px;
+	width: 320px;
 }
 
 .modal-dialog tr:nth-child(even) {

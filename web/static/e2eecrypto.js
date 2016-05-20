@@ -1673,7 +1673,7 @@ var crypton = {};
 
         this.getDiff(function(err, diff) {
             if (!diff) {
-                callback('Container has not changed');
+                callback('File has not changed');
                 return;
             }
 
