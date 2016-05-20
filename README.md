@@ -1,12 +1,12 @@
-# End-to-End Encryption (E2EE) client
+# End-to-End Encryption (E2EE) storage client
 
 <a target="_blank" href="https://chrome.google.com/webstore/detail/e2ee-client/gijohbllljmpdlljfognplndkpfhllfe">
 <img alt="Try it now" src="https://raw.github.com/GoogleChrome/chrome-app-samples/master/tryitnowbutton_small.png" title="Click here to install this app from the Chrome Web Store"></img>
 </a>
 
-E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). For cryptography it uses [Crypton](https://github.com/SpiderOak/crypton). However, Crypton was [slightly modified](https://github.com/xlab-si/e2ee-client/wiki/Speed-up-Javascript-crypto) to enable faster encryption/decryption of files.
+E2EE client encrypts files and sends them to [E2EE server](https://github.com/xlab-si/e2ee-server). For cryptography it uses [Crypton](https://github.com/SpiderOak/crypton). However, Crypton was [slightly modified](https://github.com/xlab-si/e2ee-client/wiki/Speed-up-Javascript-crypto) to enable faster encryption/decryption of files. Also, for authentication it does not use Secure Remote Password but Google Identity Platform (you can login with a Gmail account, but you still need a passphrase from which a key is derived which encrypts  keys obtained using random generator and used for actual file encryption).
 
-Note: currently when somebody shares a file to you, the shared file will appear in your client only after logout/login.
+Note: E2EE client is a work in progress. For example currently when somebody shares a file to you, the shared file will appear in your client only after logout/login (this is supported in Crypton, but not in E2EE server at the moment). Pull requests are welcome.
 
 # Usage
 

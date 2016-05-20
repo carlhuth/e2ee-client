@@ -253,7 +253,7 @@ var e2ee
                                     	if (window.console && window.console.log) {
                                         	console.info(err)
                                     	}
-                                    	e2ee.UI.showInfo(file.name, err, false)
+                                    	e2ee.UI.showInfo(file.name, err, true) // true because it is most likely due to "Container has not changed"
                                     	e2ee.UI.fileOperationIsComplete(file.name)
                                 	} else {
                                     	e2ee.UI.addFile(file.name, metadata, alreadyExists)
