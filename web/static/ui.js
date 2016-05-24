@@ -309,7 +309,6 @@
                                 }
                                 return
                             }
-
                             var sharedFiles = fileNames['sharedFiles']
                             var ind = $(row).index()
 							sharedFiles = sharedFiles.filter(function(el){return el.fileName!==fileName})
@@ -796,12 +795,9 @@
                     var sharedFileNames = jQuery.map(fileNames['sharedFiles'], function(b) {
                         return b.fileName
                     })
+                    e2ee.session.sharedFileNames = sharedFileNames // hack: shared info should be moved into container
                     for (var i = 0; i < files.length; i++) {
                         var fileName = files[i]
-                        var shared = false
-                        if (sharedFileNames.indexOf(fileName) > -1) {
-                            shared = true
-                        }
 						e2ee.crypto.getContainer(fileName, function(fileContainer) { 
             				fileContainer.get('metadata', function(err, metadata) {
                 				if (err) {
@@ -810,6 +806,10 @@
                         				console.info('file not available: ' + fileContainer.name)
                     				}
                 				} else {
+			                        var shared = false
+        			                if (e2ee.session.sharedFileNames.indexOf(fileContainer.name) > -1) {
+                			            shared = true
+                        			}
 			                        e2ee.UI.addFileElement(fileContainer.name, metadata["date"], shared, true)
                 				}
                 			})
